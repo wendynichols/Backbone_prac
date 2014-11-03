@@ -4,7 +4,7 @@
 
 // Custom Styles
 body {
-  background: #fafafa;
+  background: '#fafafa';
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
 }
@@ -12,15 +12,27 @@ body {
 .hero-unit {
   margin: 50px auto 0 auto;
   width: 600px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 200;
   line-height: 30px;
-  background-color: #eee;
+  background-color: RGBA(61, 153, 112, 1);
   border-radius: 6px;
   padding: 60px;
   h1 {
-    font-size: 60px;
+    font-size: 55px;
     line-height: 1;
     letter-spacing: -1px;
+    text-align: center;
+    color: RGBA(255, 77, 79, 1);
   }
+}
+
+input {
+  border-radius: 4px;
+}
+button {
+  border-radius: 4px;
+  width: 150px;
+  font-size: 15px;
+  color: RGBA(255, 77, 79, 1);
 }

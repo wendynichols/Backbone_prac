@@ -16,13 +16,13 @@ var Sister = Backbone.Model.extend ({    // Model
 
     var Sisters = Backbone.Collection.extend ({    // Collection
       model: Sister,
-      url: 'http://tiy-atl-fe-server.herokuapp.com/collections/wendybackbonepractice'
+      url: 'http://tiy-atl-fe-server.herokuapp.com/collections/wendybackbone'
     });
 
-    var all_sisters = new Sisters();      // Instance of the Collection s
+    var all_sisters = new Students();      // Instance of the Collection s
 
 
-    $('#sisterForm').on('submit', function () {
+    $('#studentForm').on('submit', function () {
 
         // Prevent the default action of our form submission
       e.preventDefault();
