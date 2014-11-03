@@ -1,50 +1,73 @@
-var Sister = Backbone.Model.extend ({    // Model
+    var Feeling = Backbone.Model.extend({
 
-      defaults: {     //pass in an object literal, don't forget the commas
-        name: '',
-        location: 'Washington',
-        awesome: true
+      defaults: {
+        title: '',
+        cause: '',
+        type: ''
       },
 
+      idAttribute: '_id',
 
-      initialize: function () {
-        var n = this.get('name');
-        console.log(n + ' is part of the Family!')
+      initialize: function() {
+        var feel = this.get('title');
       }
 
     });
 
-    var Sisters = Backbone.Collection.extend ({    // Collection
-      model: Sister,
-      url: 'http://tiy-atl-fe-server.herokuapp.com/collections/wendybackbone'
+      var Feelings = Backbone.Collection.extend({
+      model: Feeling,
+      url: 'http://tiy-atl-fe-server.herokuapp.com/collections/backbonesecondpractice'
     });
 
-    var all_sisters = new Students();      // Instance of the Collection s
+  var FeelingsView = Backbone.View.extend ({
+
+      tagName: 'ul',
+      className: 'feels',
+
+      initialize: function (options) {
+        this.render(options.collection);  //we've made the data available
+      },
+
+      render: function (collection) {
+          //Binding 'this' to 'self' for use in nested
+          // functions/callbacks
+        var self = this;
 
 
-    $('#studentForm').on('submit', function () {
+          // Straight up underscore template goodness
+        var template = $('#feels').html();
+        var rendered = _.template(template);
 
-        // Prevent the default action of our form submission
-      e.preventDefault();
+          // Iterating over our models
+        _.each(collection.models, function (c) {
 
-        // Grab the name from the input
-      var sister_name = $('#name').val;
+            // Each iteration...appending the data to
+            //    our element tht Backbone created
+          self.$el.append(rendered(c.attributes));
+        });
 
-        // Create a new instance of our Sister constructor (Backbone.model)
-      var s = new Sister({
-        name: sister_name
+
+            // Take the data and append it into a
+            // specific element on my page
+        $('#feelsContainer').html(this.el);
+
+
+        return this;
+
+      }
+
+
+    });
+
+
+      // Create instance of Feeling Collection
+    var all_feelings = new Feelings();
+
+
+      // Pull our feelingsfrom our server
+    all_feelings.fetch().done( function() {
+      var feelsview = new FeelingsView({
+        collection: all_feelings
       });
-
-
-        //Access out Collecton and add our new instance (Sister) to our collection
-      all_sisters.add(s);
-
-        //Save our Sister - this looks for a URL field or a URL field in our collection
-          // and saves it to that URL using a simple POST method
-      s.save();
-      console.log(s);
-
-        // Clear my form
-      $(this)[0].reset();
 
     });
