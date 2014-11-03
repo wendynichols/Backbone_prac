@@ -1,25 +1,25 @@
-var Student = Backbone.Model.extend ({    // Model
+var Sister = Backbone.Model.extend ({    // Model
 
       defaults: {     //pass in an object literal, don't forget the commas
         name: '',
-        location: 'Atlanta',
+        location: 'Washington',
         awesome: true
       },
 
 
       initialize: function () {
         var n = this.get('name');
-        console.log(n + ' has been added!')
+        console.log(n + ' is part of the Family!')
       }
 
     });
 
-    var Students = Backbone.Collection.extend ({    // Collection
-      model: Student,
+    var Sisters = Backbone.Collection.extend ({    // Collection
+      model: Sister,
       url: 'http://tiy-atl-fe-server.herokuapp.com/collections/wendybackbone'
     });
 
-    var all_students = new Students();      // Instance of the Collection s
+    var all_sisters = new Students();      // Instance of the Collection s
 
 
     $('#studentForm').on('submit', function () {
@@ -28,18 +28,18 @@ var Student = Backbone.Model.extend ({    // Model
       e.preventDefault();
 
         // Grab the name from the input
-      var student_name = $('#name').val;
+      var sister_name = $('#name').val;
 
-        // Create a new instance of our Student constructor (Backbone.model)
-      var s = new Student({
-        name: student_name
+        // Create a new instance of our Sister constructor (Backbone.model)
+      var s = new Sister({
+        name: sister_name
       });
 
 
-        //Access out Collecton and add our new instance (Student) to our collection
-      all_students.add(s);
+        //Access out Collecton and add our new instance (Sister) to our collection
+      all_sisters.add(s);
 
-        //Save our Student - this looks for a URL field or a URL field in our collection
+        //Save our Sister - this looks for a URL field or a URL field in our collection
           // and saves it to that URL using a simple POST method
       s.save();
       console.log(s);
