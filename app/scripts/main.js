@@ -1,12 +1,12 @@
 
       // Create instance of Feeling Collection
-    var all_heros = new Heros();
+    var all_heroes = new Heroes();
 
 
       // Pull our feelingsfrom our server
-    all_heros.fetch().done( function() {
-      var herosview = new HerosView({
-        collection: all_heros
+    all_heroes.fetch().done( function() {
+      var heroesview = new HeroesView({
+        collection: all_heroes
       });
 
     });

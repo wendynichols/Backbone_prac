@@ -2,7 +2,7 @@
 
       defaults: {
         title: '',
-        cause: '',
+        power: '',
         type: ''
       },
 

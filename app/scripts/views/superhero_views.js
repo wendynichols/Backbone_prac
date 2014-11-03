@@ -1,4 +1,4 @@
-  var HerosView = Backbone.View.extend ({
+  var HeroesView = Backbone.View.extend ({
 
       tagName: 'ul',
       className: 'hero',
