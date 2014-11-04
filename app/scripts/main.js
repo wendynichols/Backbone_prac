@@ -1,12 +1,15 @@
 
+    (function () {
+
+      new App.Views.HeroesAdd();
+
       // Create instance of Feeling Collection
-    var all_heroes = new Heroes();
+    App.all_heroes = new App.Collections.Heroes();
 
 
       // Pull our feelingsfrom our server
-    all_heroes.fetch().done( function() {
-      var heroesview = new HeroesView({
-        collection: all_heroes
+    App.all_heroes.fetch().done( function() {
+      new App.Views.HeroesView
       });
 
-    });
+    }());

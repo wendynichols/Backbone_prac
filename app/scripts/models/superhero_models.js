@@ -1,4 +1,7 @@
-    var Hero = Backbone.Model.extend({
+
+  (function () {
+
+    App.Models.Hero = Backbone.Model.extend({
 
       defaults: {
         title: '',
@@ -13,3 +16,5 @@
       }
 
     });
+
+  }());
