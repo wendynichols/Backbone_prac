@@ -9,11 +9,14 @@ body {
   color: #333;
 }
 .wholeContainer {
-  width: 1400px;
+  z-index: 1;
+  //width: 1400px;
+  //height: 650px;
   margin: 10px auto 0 auto;
-  background-color: RGBA(0, 31, 63, 1);
+  background-image: url('');
 }
 .hero-unit {
+  z-index: 2;
   margin: 50px auto 0 auto;
   width: 600px;
   font-size: 15px;

@@ -14,6 +14,9 @@
 
         App.all_heroes.on('sync', this.render, this);
         App.all_heroes.on('destroy', this.render, this);
+
+        $('#superheroContainer').html(this.el);
+        
       },
 
       render: function () {
@@ -37,10 +40,6 @@
           self.$el.append(rendered(c.attributes));
         });
 
-
-            // Take the data and append it into a
-            // specific element on my page
-        $('#superheroContainer').html(this.el);
 
         return this;
 
