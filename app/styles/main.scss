@@ -18,11 +18,25 @@ body {
   background-color: RGBA(61, 153, 112, 1);
   border-radius: 6px;
   padding: 60px;
+    li {
+    background-color: RGBA(255, 220, 0, 1);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: RGBA(255, 77, 79, 1);
+    }
+  }
   h1 {
     font-size: 55px;
     line-height: 1;
     letter-spacing: -1px;
     text-align: center;
     color: RGBA(255, 77, 79, 1);
+  }
+  #heroesAdd {
+    margin: 25px 0;
   }
 }

@@ -1,13 +1,22 @@
-  var HeroesView = Backbone.View.extend ({
+  (function () {
+
+  App.Views.HeroesView = Backbone.View.extend ({
 
       tagName: 'ul',
       className: 'hero',
 
-      initialize: function (options) {
-        this.render(options.collection);  //we've made the data available
+      events: {
+        'click li' : 'deleteMyHero'
       },
 
-      render: function (collection) {
+      initialize: function () {
+        this.render();  //we've made the data available
+
+        App.all_heroes.on('sync', this.render, this);
+        App.all_heroes.on('destroy', this.render, this);
+      },
+
+      render: function () {
           //Binding 'this' to 'self' for use in nested
           // functions/callbacks
         var self = this;
@@ -17,8 +26,11 @@
         var template = $('#hero').html();
         var rendered = _.template(template);
 
+
+        this.$el.empty();
+
           // Iterating over our models
-        _.each(collection.models, function (c) {
+        _.each(App.all_heroes.models, function (c) {
 
             // Each iteration...appending the data to
             //    our element tht Backbone created
@@ -32,6 +44,14 @@
 
         return this;
 
-      }
+      },
 
+        deleteMyHero: function (e) {
+          e.preventDefault();
+
+        var id = $(e.target).attr('id');
+        var goodbye = App.all_heroes.get(id);
+          goodbye.destroy();
+        }
     });
+  }());
