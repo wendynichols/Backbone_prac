@@ -8,25 +8,29 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
 }
-
+.wholeContainer {
+  width: 1400px;
+  margin: 10px auto 0 auto;
+  background-color: RGBA(0, 31, 63, 1);
+}
 .hero-unit {
   margin: 50px auto 0 auto;
   width: 600px;
   font-size: 15px;
   font-weight: 200;
   line-height: 30px;
-  background-color: RGBA(61, 153, 112, 1);
+  background-color: RGBA(255, 65, 54, 1);
   border-radius: 6px;
   padding: 60px;
     li {
-    background-color: RGBA(255, 220, 0, 1);
+    background-color: RGBA(232, 201, 174, 1);
     color: white;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 10px;
     cursor: pointer;
     &:hover {
-      background-color: RGBA(255, 77, 79, 1);
+      background-color: RGBA(0, 31, 63, 1);
     }
   }
   h1 {
@@ -34,7 +38,7 @@ body {
     line-height: 1;
     letter-spacing: -1px;
     text-align: center;
-    color: RGBA(255, 77, 79, 1);
+    color: RGBA(0, 31, 63, 1);
   }
   #heroesAdd {
     margin: 25px 0;
