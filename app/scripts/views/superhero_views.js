@@ -16,7 +16,7 @@
         App.all_heroes.on('destroy', this.render, this);
 
         $('#superheroContainer').html(this.el);
-        
+
       },
 
       render: function () {
@@ -36,7 +36,7 @@
         _.each(App.all_heroes.models, function (c) {
 
             // Each iteration...appending the data to
-            //    our element tht Backbone created
+            //    our element that Backbone created
           self.$el.append(rendered(c.attributes));
         });
 
