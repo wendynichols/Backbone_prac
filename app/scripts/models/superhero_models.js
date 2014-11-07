@@ -5,8 +5,7 @@
 
       defaults: {
         title: '',
-        power: '',
-        type: ''
+        power: ''
       },
 
       idAttribute: '_id',

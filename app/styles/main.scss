@@ -9,16 +9,14 @@ body {
   color: #333;
 }
 .wholeContainer {
-  z-index: 1;
   //width: 1400px;
   //height: 650px;
   //margin: 10px auto 0 auto;
 }
 .hero-unit {
-  
+
 }
 .infoField {
-  z-index: 2;
   margin: 50px auto 0 auto;
   width: 600px;
   font-size: 15px;
@@ -47,5 +45,10 @@ body {
   }
   #heroesAdd {
     margin: 25px 0;
+  }
+  .addBtn {
+    //position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }
