@@ -5,7 +5,9 @@
 
       defaults: {
         title: '',
-        power: ''
+        power: '',
+        comments: '',
+        rating: ''
       },
 
       idAttribute: '_id',
