@@ -6,8 +6,12 @@
       className: 'hero',
 
       events: {
-        'click li' : 'deleteMyHero'
+        'submit #updateHero' : 'updateHero',
+        'click #delete' : 'deleteHero'
       },
+
+      template: _.template($('#singleTemp').html()),
+
 
       initialize: function () {
         this.render();  //we've made the data available
