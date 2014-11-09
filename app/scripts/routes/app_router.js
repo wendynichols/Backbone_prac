@@ -9,12 +9,17 @@
 
       routes: {
         '' : 'home',
-        'edit/:id' : 'editCoffee'
+        'edit/:id' : 'editCoffee',
+        'add' : 'addCoffee',
+        'sort/:sortby' : 'home'
       },
 
-      home: function () {
-        new App.Views.AddHero();
-        new App.Views.ListHero({ collection: App.heroes });
+      home: function (sortby) {
+        new App.Views.ListHero({
+          collection: App.heroes,
+          showEveryone: false,
+          sort: sortby
+          });
       },
 
       editHero: function (id) {
@@ -22,7 +27,14 @@
         var h = App.heroes.get(id);
 
         new App.Views.SingleHero({ hero: h });
-      }
+      },
+
+      addHero: function () {
+
+        new App.Views.AddHero();
+
+    }
+
 
     });
 
