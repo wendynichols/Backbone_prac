@@ -23,11 +23,13 @@
           // Grab feel values from my form
         var heroes_title = $('#title').val();
         var heroes_power = $('#power').val();
+        var heroes_alias = $('#alias').val();
 
           // Create new Feeling
         var hero = new App.Models.Hero({
           title: heroes_title,
           power: heroes_power,
+          alias: heroes_alias,
         });
 
           // Add to our Collection and save to the server
