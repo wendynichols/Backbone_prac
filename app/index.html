@@ -52,6 +52,59 @@
           <hr />
         </script>
 
+         <script type="text/template" id="listTemp">
+      <li class="card" id="<%= _id %>">
+        <a href="#/edit/<%= _id %>">
+          <div class="card-header"><%= title %> my power is <%= power %> my alias is <%= alias %></div>
+          <% if(comments !== '') { %>
+              <div class="card-copy"><p><%= comments %></p></div>
+          <% } %>
+          <% if(rating !== '') { %>
+              <div class="card-stats"><%= rating %> Cool Rating</div>
+          <% } %>
+        </a>
+      </li>
+    </script>
+
+    <script type="text/template" id="singleTemp">
+      <li class="card" id="<%= _id %>">
+        <form id="updateHero">
+            <div class="card-header">
+              <input type="text" value="<%= title %>" id="update_title" />
+              <input type="text" value="<%= power %>" id="update_power" />
+              <input type="text" value="<%= alias %>" id="update_alias" />
+              <textarea id="update_comments"><%= comments %></textarea>
+            </div>
+            <div class="button-group">
+              <label>
+                <input type="radio" name="rating" value="1" <% if (rating == "1") { %>checked<% } %>>
+                <span class="button-group-item">1</span>
+              </label>
+              <label>
+                <input type="radio" name="rating" value="2" <% if (rating == "2") { %>checked<% } %>>
+                <span class="button-group-item">2</span>
+              </label>
+              <label>
+                <input type="radio" name="rating" value="3" <% if (rating == "3") { %>checked<% } %>>
+                <span class="button-group-item">3</span>
+              </label>
+              <label>
+                <input type="radio" name="rating" value="4" <% if (rating == "4") { %>checked<% } %>>
+                <span class="button-group-item">4</span>
+              </label>
+              <label>
+                <input type="radio" name="rating" value="5" <% if (rating == "5") { %>checked<% } %>>
+                <span class="button-group-item">5</span>
+              </label>
+            </div>
+            <div class="card-stats">
+              <button>Update Heroes</button>
+              <button id="delete">Delete</button>
+            </div>
+        </form>
+      </li>
+    </script>
+
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
