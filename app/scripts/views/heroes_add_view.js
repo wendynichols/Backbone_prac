@@ -1,9 +1,9 @@
 (function () {
 
-    App.Views.HeroesAdd = Backbone.View.extend({
+    App.Views.AddHero = Backbone.View.extend({
 
       events: {
-        'submit #heroesAdd' : 'addNewHero'   //A delegated event, has to be inside of our view element
+        'submit #addHero' : 'addHero'
       },
 
 
@@ -17,7 +17,7 @@
       },
 
         //Custom created elements after initialize and render
-      addNewHero: function (e) {
+      addHero: function (e) {
         e.preventDefault();
 
           // Create new Feeling

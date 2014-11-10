@@ -7,6 +7,7 @@
         defaults: {
           title: '',
           power: '',
+          alias: '',
           comments: '',
           rating: ''
       },

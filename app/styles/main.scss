@@ -6,7 +6,7 @@
 // Custom Styles
 body {
   background: '#fafafa';
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Bangers', cursive;
   color: #333;
 }
 .wholeContainer {
@@ -14,26 +14,33 @@ body {
   //height: 650px;
   //margin: 10px auto 0 auto;
 }
+img {
+  margin: 50px;
+}
 .hero-unit {
-
+  background-image: url('http://www.tmstash.com/wp-content/uploads/2014/02/comic-book-faces.jpg');
+  height: 1000px;
 }
 .infoField {
-  margin: 50px auto 0 auto;
+  margin: 0 auto 0 auto;
   width: 600px;
+  height: 1000px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
-  background-color: #eee;
+  background-image: url('http://www.clker.com/cliparts/S/V/M/7/X/i/pow-hi.png');
   border-radius: 6px;
   padding: 60px;
   position: relative;
   h1 {
-    font-size: 60px;
+    font-size: 100px;
     line-height: 1;
     letter-spacing: -1px;
+    text-align: center;
+    font-family: 'Bangers', cursive;
     a {
       text-decoration: none;
-      color: black;
+      color: RGBA(206, 22, 30, 1);
     }
   }
   form {
@@ -41,10 +48,10 @@ body {
   }
 }
 #delete {
-  background-color: hsla(349,100%,43%,1);
+  background-color: RGBA(233, 227, 16, 1);
 }
 
-#coffeeList {
+#heroList {
   @include clearfix;
   padding: 25px 0;
 }
@@ -53,6 +60,7 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-color: RGBA(233, 227, 16, 1);
 }
 
 .card {
