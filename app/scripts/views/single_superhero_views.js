@@ -1,6 +1,6 @@
   (function () {
 
-  App.Views.HeroesView = Backbone.View.extend ({
+  App.Views.SingleHero = Backbone.View.extend ({
 
       tagName: 'ul',
       className: 'heroSingle',
@@ -17,7 +17,7 @@
         this.render();
 
       $('#heroForm').empty();
-      $('#heroList').html(this.$el);
+      $('#superheroContainer').html(this.$el);
     },
 
       render: function () {

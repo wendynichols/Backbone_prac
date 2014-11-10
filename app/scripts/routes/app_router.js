@@ -13,7 +13,7 @@
         'sort/:sortby' : 'main'
       },
 
-      main: function (sortby) {
+      home: function (sortby) {
         new App.Views.ListHero({
           collection: App.heroes,
           showEveryone: false,

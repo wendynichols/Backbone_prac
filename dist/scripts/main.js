@@ -3,13 +3,14 @@
 
     App.Models.Hero = Backbone.Model.extend({
 
-      defaults: {
-        title: '',
-        power: '',
-        type: ''
-      },
-
       idAttribute: '_id',
+        defaults: {
+          title: '',
+          power: '',
+          alias: '',
+          comments: '',
+          rating: ''
+      },
 
       initialize: function() {
         var hero = this.get('title');
@@ -24,6 +25,9 @@
 
       App.Collections.Heroes = Backbone.Collection.extend({
       model: App.Models.Hero,
+      comparator: function (model) {
+        return -parseInt(model.get('rating'));
+      },
       url: 'http://tiy-atl-fe-server.herokuapp.com/collections/superhero'
     });
 
@@ -34,70 +38,68 @@
   App.Views.HeroesView = Backbone.View.extend ({
 
       tagName: 'ul',
-      className: 'hero',
+      className: 'heroSingle',
 
       events: {
-        'click li' : 'deleteMyHero'
+        'submit #updateHero' : 'updateHero',
+        'click #delete' : 'deleteHero'
       },
 
-      initialize: function () {
-        this.render();  //we've made the data available
+      template: _.template($('#singleTemp').html()),
 
-        App.all_heroes.on('sync', this.render, this);
-        App.all_heroes.on('destroy', this.render, this);
+      initialize: function (options) {
+        this.options = options;
+        this.render();
 
-        $('#superheroContainer').html(this.el);
-
-      },
+      $('#heroForm').empty();
+      $('#heroList').html(this.$el);
+    },
 
       render: function () {
-          //Binding 'this' to 'self' for use in nested
-          // functions/callbacks
-        var self = this;
-
-
-          // Straight up underscore template goodness
-        var template = $('#hero').html();
-        var rendered = _.template(template);
-
-
         this.$el.empty();
+        this.$el.html(this.template(this.options.hero.toJSON()));
 
-          // Iterating over our models
-        _.each(App.all_heroes.models, function (c) {
-
-            // Each iteration...appending the data to
-            //    our element that Backbone created
-          self.$el.append(rendered(c.attributes));
-        });
+    },
 
 
-        return this;
+       updateHero: function (e) {
+        e.preventDefault();
+        this.options.hero.set({
+          title: $('#update_title').val(),
+          power: $('#update_power').val(),
+          alias: $('#update_alias').val(),
+          rating: $('input[name="rating"]:checked').val()
+      });
+
+        this.options.hero.save();
+        App.router.navigate('', {trigger: true});
 
       },
 
-        deleteMyHero: function (e) {
+        deleteHero: function (e) {
           e.preventDefault();
+          this.options.hero.destroy();
 
-        var id = $(e.target).attr('id');
-        var goodbye = App.all_heroes.get(id);
-          goodbye.destroy();
-        }
+        App.router.navigate('', {trigger: true});
+
+      }
+
     });
+
   }());
 
 (function () {
 
-    App.Views.HeroesAdd = Backbone.View.extend({
-      el: '#heroesAdder',  //from new div in index.html
+    App.Views.AddHero = Backbone.View.extend({
 
       events: {
-        'submit #heroesAdd' : 'addNewHero'   //A delegated event, has to be inside of our view element
+        'submit #addHero' : 'addHero'
       },
 
 
       initialize: function () {
         this.render();
+        $('#heroList').html(this.$el);
       },
 
       render: function () {
@@ -105,29 +107,77 @@
       },
 
         //Custom created elements after initialize and render
-      addNewHero: function (e) {
+      addHero: function (e) {
         e.preventDefault();
 
-          // Grab feel values from my form
-        var heroes_title = $('#title').val();
-        var heroes_power = $('#power').val();
-        var heroes_type = $('#type').val();
-
           // Create new Feeling
-        var hero = new App.Models.Hero({
-          title: heroes_title,
-          power: heroes_power,
-          type: heroes_type
+        var he = new App.Models.Hero({
+          title: $('#heroes_title').val(),
+          power: $('#heroes_power').val(),
+          alias: $('#heroes_alias').val()
         });
 
-          // Add to our Collection and save to the server
-        App.all_heroes.add(hero).save();
 
-          // Clear my form
-        $('#heroesAdd')[0].reset();
+          // Add to our Collection and save to the server
+        App.heroes.add(he).save(null, {
+          success: function () {
+            App.router.navigate('', { trigger: true });
+          }
+        });
 
       }
 
+    });
+
+  }());
+
+  (function () {
+
+    App.Views.ListHero = Backbone.View.extend({
+
+      tagName: 'ul',
+      className: 'allHeroes',
+      events: {},
+      template: _.template($('#listTemp').html()),
+
+      initialize: function (options) {
+        this.options = options;
+        this.render();
+        this.collection.off();
+        this.collection.on('sync', this.render, this);
+
+        $('#heroList').html(this.$el);
+
+    },
+
+      render: function () {
+        var self = this;
+        this.$el.empty();
+
+        if (this.options.sort != undefined) {
+          var local_collection = this.collection.sortBy( function (model) {
+            return model.get(self.options.sort);
+    });
+
+      _.each(local_collection, function (he) {
+          self.$el.append(self.template(he.toJSON()));
+        })
+      } else {
+        this.collection.sort();
+        this.collection.each(function (he) {
+          self.$el.append(self.template(he.toJSON()));
+        });
+      }
+
+        if (this.options.showEveryone) {
+          $('.infoField h1 a').html('Everyone');
+
+      } else {
+          $('.infoField h1 a').html('Superheroes');
+      }
+
+        return this;
+      }
 
     });
 
@@ -138,43 +188,47 @@
     App.Routers.AppRouter = Backbone.Router.extend({
 
       initialize: function () {
-        // Light the Fire
         Backbone.history.start();
       },
 
       routes: {
         '' : 'home',
-        'edit/:id' : 'editCoffee'
+        'edit/:id' : 'editHero',
+        'add' : 'addHero',
+        'sort/:sortby' : 'main'
       },
 
-      home: function () {
-        new App.Views.AddHero();
-        new App.Views.ListHero({ collection: App.heroes });
+      main: function (sortby) {
+        new App.Views.ListHero({
+          collection: App.heroes,
+          showEveryone: false,
+          sort: sortby
+          });
       },
 
       editHero: function (id) {
-
         var h = App.heroes.get(id);
-
         new App.Views.SingleHero({ hero: h });
+      },
+
+      addHero: function () {
+        new App.Views.AddHero();
       }
-
     });
-
   }());
 
 
-    (function () {
+  (function () {
 
-      new App.Views.HeroesAdd();
+    // Create Instance of Collection
+    App.heroes = new App.Collections.Heroes();
 
-      // Create instance of Feeling Collection
-    App.all_heroes = new App.Collections.Heroes();
+    // Fetch any server-side coffees
+    App.heroes.fetch().done( function () {
+
+      App.router = new App.Routers.AppRouter();
+
+    });
 
 
-      // Pull our feelingsfrom our server
-    App.all_heroes.fetch().done( function() {
-      new App.Views.HeroesView
-      });
-
-    }());
+  }());

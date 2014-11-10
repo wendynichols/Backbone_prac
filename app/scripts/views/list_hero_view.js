@@ -13,7 +13,7 @@
         this.collection.off();
         this.collection.on('sync', this.render, this);
 
-        $('#heroList').html(this.$el);
+        $('#superheroContainer').html(this.$el);
 
     },
 
@@ -26,21 +26,20 @@
             return model.get(self.options.sort);
     });
 
-      _.each(local_collection, function (he) {
+      _.each(local_collection, function (h) {
           self.$el.append(self.template(he.toJSON()));
         })
       } else {
         this.collection.sort();
-        this.collection.each(function (he) {
-          self.$el.append(self.template(he.toJSON()));
+        this.collection.each(function (h) {
+          self.$el.append(self.template(h.toJSON()));
         });
       }
 
         if (this.options.showEveryone) {
           $('.infoField h1 a').html('Everyone');
-
       } else {
-          $('.infoField h1 a').html('Superheroes');
+          $('.infoField h1 a').html('Super Heroes');
       }
 
         return this;
