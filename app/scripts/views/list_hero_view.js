@@ -4,34 +4,48 @@
 
       tagName: 'ul',
       className: 'allHeroes',
-
       events: {},
-
       template: _.template($('#listTemp').html()),
 
       initialize: function (options) {
-
         this.options = options;
-
         this.render();
-
         this.collection.off();
         this.collection.on('sync', this.render, this);
 
-        // Get our Element On Our Page
         $('#heroList').html(this.$el);
 
-      },
+    },
 
-        render: function () {
+      render: function () {
         var self = this;
-
-        // Empty out
         this.$el.empty();
 
-        // Sorting On The Fly
         if (this.options.sort != undefined) {
-          // Setting up a localized collection to sort by our sort param
           var local_collection = this.collection.sortBy( function (model) {
             return model.get(self.options.sort);
-          });
+    });
+
+      _.each(local_collection, function (he) {
+          self.$el.append(self.template(he.toJSON()));
+        })
+      } else {
+        this.collection.sort();
+        this.collection.each(function (he) {
+          self.$el.append(self.template(he.toJSON()));
+        });
+      }
+
+        if (this.options.showTwitter) {
+          $('.infoField h1 a').html('Twitter');
+
+      } else {
+        $('.infoField h1 a').html('Superheroes');
+      }
+      
+      return this;
+    }
+
+  });
+
+}());
