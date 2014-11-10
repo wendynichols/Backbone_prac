@@ -13,17 +13,12 @@
       },
 
       render: function () {
-        this.$el.html($('#addTemp').html());
+        this.$el.html($('#addHeroes').html());
       },
 
         //Custom created elements after initialize and render
       addNewHero: function (e) {
         e.preventDefault();
-
-          // Grab feel values from my form
-        // var heroes_title = $('#title').val();
-        // var heroes_power = $('#power').val();
-        // var heroes_alias = $('#alias').val();
 
           // Create new Feeling
         var he = new App.Models.Hero({
