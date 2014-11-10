@@ -9,10 +9,11 @@
 
       initialize: function () {
         this.render();
+        $('#heroList').html(this.$el);
       },
 
       render: function () {
-        this.$el.html($('#addHeroes').html());
+        this.$el.html($('#addTemp').html());
       },
 
         //Custom created elements after initialize and render
@@ -20,25 +21,26 @@
         e.preventDefault();
 
           // Grab feel values from my form
-        var heroes_title = $('#title').val();
-        var heroes_power = $('#power').val();
-        var heroes_alias = $('#alias').val();
+        // var heroes_title = $('#title').val();
+        // var heroes_power = $('#power').val();
+        // var heroes_alias = $('#alias').val();
 
           // Create new Feeling
-        var hero = new App.Models.Hero({
-          title: heroes_title,
-          power: heroes_power,
-          alias: heroes_alias,
+        var he = new App.Models.Hero({
+          title: $('#heroes_title').val(),
+          power: $('#heroes_power').val(),
+          alias: $('#heroes_alias').val()
         });
 
-          // Add to our Collection and save to the server
-        App.all_heroes.add(hero).save();
 
-          // Clear my form
-        $('#heroesAdd')[0].reset();
+          // Add to our Collection and save to the server
+        App.heroes.add(he).save(null, {
+          success: function () {
+            App.router.navigate('', { trigger: true });
+          }
+        });
 
       }
-
 
     });
 
