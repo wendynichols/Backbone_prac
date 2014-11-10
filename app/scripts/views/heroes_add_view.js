@@ -1,7 +1,6 @@
 (function () {
 
     App.Views.HeroesAdd = Backbone.View.extend({
-      el: '#heroesAdder',  //from new div in index.html
 
       events: {
         'submit #heroesAdd' : 'addNewHero'   //A delegated event, has to be inside of our view element
