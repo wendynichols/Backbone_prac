@@ -36,16 +36,16 @@
         });
       }
 
-        if (this.options.showTwitter) {
-          $('.infoField h1 a').html('Twitter');
+        if (this.options.showEveryone) {
+          $('.infoField h1 a').html('Everyone');
 
       } else {
-        $('.infoField h1 a').html('Superheroes');
+          $('.infoField h1 a').html('Superheroes');
       }
-      
-      return this;
-    }
 
-  });
+        return this;
+      }
 
-}());
+    });
+
+  }());
