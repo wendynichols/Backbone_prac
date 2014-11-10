@@ -3,7 +3,7 @@
   App.Views.HeroesView = Backbone.View.extend ({
 
       tagName: 'ul',
-      className: 'hero',
+      className: 'heroSingle',
 
       events: {
         'submit #updateHero' : 'updateHero',
@@ -12,49 +12,43 @@
 
       template: _.template($('#singleTemp').html()),
 
+      initialize: function (options) {
+        this.options = options;
+        this.render();
 
-      initialize: function () {
-        this.render();  //we've made the data available
-
-        App.all_heroes.on('sync', this.render, this);
-        App.all_heroes.on('destroy', this.render, this);
-
-        $('#superheroContainer').html(this.el);
-
-      },
+      $('#heroForm').empty();
+      $('#heroList').html(this.$el);
+    },
 
       render: function () {
-          //Binding 'this' to 'self' for use in nested
-          // functions/callbacks
-        var self = this;
-
-
-          // Straight up underscore template goodness
-        var template = $('#hero').html();
-        var rendered = _.template(template);
-
-
         this.$el.empty();
+        this.$el.html(this.template(this.options.hero.toJSON()));
 
-          // Iterating over our models
-        _.each(App.all_heroes.models, function (c) {
-
-            // Each iteration...appending the data to
-            //    our element that Backbone created
-          self.$el.append(rendered(c.attributes));
-        });
+    },
 
 
-        return this;
+       updateHero: function (e) {
+        e.preventDefault();
+        this.options.hero.set({
+          title: $('#update_title').val(),
+          power: $('#update_power').val(),
+          alias: $('#update_alias').val(),
+          rating: $('input[name="rating"]:checked').val()
+      });
+
+        this.options.hero.save();
+        App.router.navigate('', {trigger: true});
 
       },
 
-        deleteMyHero: function (e) {
+        deleteHero: function (e) {
           e.preventDefault();
+          this.options.hero.destroy();
 
-        var id = $(e.target).attr('id');
-        var goodbye = App.all_heroes.get(id);
-          goodbye.destroy();
-        }
+        App.router.navigate('', {trigger: true});
+
+      }
+
     });
+
   }());
