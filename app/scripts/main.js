@@ -1,3 +1,5 @@
+Parse.initialize("Qsvma6Q4shBJOYjZ16ewn66Z5WTXZ6fqGALGxXMK", "2qis94Ka9BC9XYtW5rZPoMvd3sTT8m95bRwEt3sa");
+
 
   (function () {
 

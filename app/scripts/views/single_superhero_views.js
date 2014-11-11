@@ -1,6 +1,6 @@
   (function () {
 
-  App.Views.SingleHero = Backbone.View.extend ({
+  App.Views.SingleHero = Parse.View.extend ({
 
       tagName: 'ul',
       className: 'heroSingle',

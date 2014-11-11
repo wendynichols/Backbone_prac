@@ -1,6 +1,6 @@
 (function () {
 
-    App.Views.AddHero = Backbone.View.extend({
+    App.Views.AddHero = Parse.View.extend({
 
       events: {
         'submit #heroesAdd' : 'addHero'
