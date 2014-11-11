@@ -1,9 +1,12 @@
 
   (function () {
 
-    App.Models.Hero = Backbone.Model.extend({
+    App.Models.Hero = Parse.Object.extend({
 
-      idAttribute: '_id',
+      className: 'Superheroes',
+
+      idAttribute: 'objectId',
+      
         defaults: {
           title: '',
           power: '',
