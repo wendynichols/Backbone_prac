@@ -35,7 +35,7 @@
 
   (function () {
 
-  App.Views.HeroesView = Backbone.View.extend ({
+  App.Views.SingleHero = Backbone.View.extend ({
 
       tagName: 'ul',
       className: 'heroSingle',
@@ -52,7 +52,7 @@
         this.render();
 
       $('#heroForm').empty();
-      $('#heroList').html(this.$el);
+      $('#superheroContainer').html(this.$el);
     },
 
       render: function () {
@@ -93,13 +93,13 @@
     App.Views.AddHero = Backbone.View.extend({
 
       events: {
-        'submit #addHero' : 'addHero'
+        'submit #heroesAdd' : 'addHero'
       },
 
 
       initialize: function () {
         this.render();
-        $('#heroList').html(this.$el);
+        $('#superheroContainer').html(this.$el);
       },
 
       render: function () {
@@ -110,16 +110,17 @@
       addHero: function (e) {
         e.preventDefault();
 
+        //console.log('hey');
+
           // Create new Feeling
-        var he = new App.Models.Hero({
+        var h = new App.Models.Hero({
           title: $('#heroes_title').val(),
           power: $('#heroes_power').val(),
           alias: $('#heroes_alias').val()
         });
 
-
           // Add to our Collection and save to the server
-        App.heroes.add(he).save(null, {
+        App.heroes.add(h).save(null, {
           success: function () {
             App.router.navigate('', { trigger: true });
           }
@@ -146,7 +147,7 @@
         this.collection.off();
         this.collection.on('sync', this.render, this);
 
-        $('#heroList').html(this.$el);
+        $('#superheroContainer').html(this.$el);
 
     },
 
@@ -159,21 +160,20 @@
             return model.get(self.options.sort);
     });
 
-      _.each(local_collection, function (he) {
+      _.each(local_collection, function (h) {
           self.$el.append(self.template(he.toJSON()));
         })
       } else {
         this.collection.sort();
-        this.collection.each(function (he) {
-          self.$el.append(self.template(he.toJSON()));
+        this.collection.each(function (h) {
+          self.$el.append(self.template(h.toJSON()));
         });
       }
 
         if (this.options.showEveryone) {
           $('.infoField h1 a').html('Everyone');
-
       } else {
-          $('.infoField h1 a').html('Superheroes');
+          $('.infoField h1 a').html('Super Heroes');
       }
 
         return this;
@@ -198,7 +198,7 @@
         'sort/:sortby' : 'main'
       },
 
-      main: function (sortby) {
+      home: function (sortby) {
         new App.Views.ListHero({
           collection: App.heroes,
           showEveryone: false,
