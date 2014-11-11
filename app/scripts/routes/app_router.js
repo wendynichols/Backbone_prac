@@ -1,9 +1,9 @@
   (function () {
 
-    App.Routers.AppRouter = Backbone.Router.extend({
+    App.Routers.AppRouter = Parse.Router.extend({
 
       initialize: function () {
-        Backbone.history.start();
+        Parse.history.start();
       },
 
       routes: {
@@ -21,8 +21,8 @@
           });
       },
 
-      editHero: function (id) {
-        var h = App.heroes.get(id);
+      editHero: function (heroID) {
+        var h = App.heroes.get(heroID);
         new App.Views.SingleHero({ hero: h });
       },
 
