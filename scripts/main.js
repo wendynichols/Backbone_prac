@@ -3,10 +3,10 @@
 
     App.Models.Hero = Parse.Object.extend({
 
-      className: 'Superheroes',
+      className: 'Hero',  //was Superheroes
 
       idAttribute: 'objectId',
-      
+
         defaults: {
           title: '',
           power: '',
@@ -16,7 +16,7 @@
       },
 
       initialize: function() {
-        var hero = this.get('title');
+        var h = this.get('title');
       }
 
     });
@@ -34,61 +34,6 @@
 
     }());
 
-  (function () {
-
-  App.Views.SingleHero = Parse.View.extend ({
-
-      tagName: 'ul',
-      className: 'heroSingle',
-
-      events: {
-        'submit #updateHero' : 'updateHero',
-        'click #delete' : 'deleteHero'
-      },
-
-      template: _.template($('#singleTemp').html()),
-
-      initialize: function (options) {
-        this.options = options;
-        this.render();
-
-      $('#heroForm').empty();
-      $('#superheroContainer').html(this.$el);
-    },
-
-      render: function () {
-        this.$el.empty();
-        this.$el.html(this.template(this.options.hero.toJSON()));
-
-    },
-
-
-       updateHero: function (e) {
-        e.preventDefault();
-        this.options.hero.set({
-          title: $('#update_title').val(),
-          power: $('#update_power').val(),
-          alias: $('#update_alias').val(),
-          rating: $('input[name="rating"]:checked').val()
-      });
-
-        this.options.hero.save();
-        App.router.navigate('', {trigger: true});
-
-      },
-
-        deleteHero: function (e) {
-          e.preventDefault();
-          this.options.hero.destroy();
-
-        App.router.navigate('', {trigger: true});
-
-      }
-
-    });
-
-  }());
-
 (function () {
 
     App.Views.AddHero = Parse.View.extend({
@@ -96,7 +41,6 @@
       events: {
         'submit #heroesAdd' : 'addHero'
       },
-
 
       initialize: function () {
         this.render();
@@ -111,18 +55,16 @@
       addHero: function (e) {
         e.preventDefault();
 
-        //console.log('hey');
-
           // Create new Feeling
-        var h = new App.Models.Hero({
+        var sh = new App.Models.Hero({
           title: $('#heroes_title').val(),
           power: $('#heroes_power').val(),
           alias: $('#heroes_alias').val()
         });
 
           // Add to our Collection and save to the server
-        App.heroes.add(h).save(null, {
-          success: function () {
+        sh.save(null, {
+          success: function (sh) {
             App.router.navigate('', { trigger: true });
           }
         });
@@ -161,13 +103,13 @@
             return model.get(self.options.sort);
     });
 
-      _.each(local_collection, function (h) {
-          self.$el.append(self.template(he.toJSON()));
+      _.each(local_collection, function (sh) {
+          self.$el.append(self.template(sh.toJSON()));
         })
       } else {
         this.collection.sort();
-        this.collection.each(function (h) {
-          self.$el.append(self.template(h.toJSON()));
+        this.collection.each(function (sh) {
+          self.$el.append(self.template(sh.toJSON()));
         });
       }
 
@@ -186,6 +128,61 @@
 
   (function () {
 
+  App.Views.SingleHero = Parse.View.extend ({
+
+      tagName: 'ul',
+      className: 'heroSingle',
+
+      events: {
+        'submit #updateHero' : 'updateHero',
+        'click #delete' : 'deleteHero'
+      },
+
+      template: _.template($('#singleTemp').html()),
+
+      initialize: function (options) {
+        this.options = options;
+        this.render();
+
+      //$('#heroForm').empty();
+      $('#superheroContainer').html(this.$el);
+    },
+
+      render: function () {
+        this.$el.empty();
+        this.$el.html(this.template(this.options.hero.toJSON()));
+
+    },
+
+
+       updateHero: function (e) {
+        e.preventDefault();
+        this.options.hero.set({
+          title: $('#update_title').val(),
+          power: $('#update_power').val(),
+          alias: $('#update_alias').val(),
+          rating: $('input[title="rating"]:checked').val()
+      });
+
+        this.options.hero.save();
+        App.router.navigate('', {trigger: true});
+
+      },
+
+        deleteHero: function (e) {
+          e.preventDefault();
+          this.options.hero.destroy();
+
+        App.router.navigate('', {trigger: true});
+
+      }
+
+    });
+
+  }());
+
+  (function () {
+
     App.Routers.AppRouter = Parse.Router.extend({
 
       initialize: function () {
@@ -194,9 +191,9 @@
 
       routes: {
         '' : 'home',
-        'edit/:id' : 'editHero',
+        'edit/:heroID' : 'editHero',
         'add' : 'addHero',
-        'sort/:sortby' : 'main'
+        'sort/:sortby' : 'home'
       },
 
       home: function (sortby) {
@@ -208,8 +205,8 @@
       },
 
       editHero: function (heroID) {
-        var h = App.heroes.get(heroID);
-        new App.Views.SingleHero({ hero: h });
+        var sh = App.heroes.get(heroID);
+        new App.Views.SingleHero({ hero: sh });
       },
 
       addHero: function () {
