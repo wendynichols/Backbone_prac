@@ -1,9 +1,12 @@
 
   (function () {
 
-    App.Models.Hero = Backbone.Model.extend({
+    App.Models.Hero = Parse.Object.extend({
 
-      idAttribute: '_id',
+      className: 'Superheroes',
+
+      idAttribute: 'objectId',
+      
         defaults: {
           title: '',
           power: '',
@@ -20,22 +23,20 @@
 
   }());
 
-
     (function () {
 
-      App.Collections.Heroes = Backbone.Collection.extend({
+      App.Collections.Heroes = Parse.Collection.extend({
       model: App.Models.Hero,
       comparator: function (model) {
         return -parseInt(model.get('rating'));
-      },
-      url: 'http://tiy-atl-fe-server.herokuapp.com/collections/superhero'
+      }
     });
 
     }());
 
   (function () {
 
-  App.Views.SingleHero = Backbone.View.extend ({
+  App.Views.SingleHero = Parse.View.extend ({
 
       tagName: 'ul',
       className: 'heroSingle',
@@ -90,7 +91,7 @@
 
 (function () {
 
-    App.Views.AddHero = Backbone.View.extend({
+    App.Views.AddHero = Parse.View.extend({
 
       events: {
         'submit #heroesAdd' : 'addHero'
@@ -134,7 +135,7 @@
 
   (function () {
 
-    App.Views.ListHero = Backbone.View.extend({
+    App.Views.ListHero = Parse.View.extend({
 
       tagName: 'ul',
       className: 'allHeroes',
@@ -185,10 +186,10 @@
 
   (function () {
 
-    App.Routers.AppRouter = Backbone.Router.extend({
+    App.Routers.AppRouter = Parse.Router.extend({
 
       initialize: function () {
-        Backbone.history.start();
+        Parse.history.start();
       },
 
       routes: {
@@ -206,8 +207,8 @@
           });
       },
 
-      editHero: function (id) {
-        var h = App.heroes.get(id);
+      editHero: function (heroID) {
+        var h = App.heroes.get(heroID);
         new App.Views.SingleHero({ hero: h });
       },
 
@@ -216,6 +217,8 @@
       }
     });
   }());
+
+Parse.initialize("Qsvma6Q4shBJOYjZ16ewn66Z5WTXZ6fqGALGxXMK", "2qis94Ka9BC9XYtW5rZPoMvd3sTT8m95bRwEt3sa");
 
 
   (function () {
