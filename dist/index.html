@@ -8,7 +8,9 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <link rel="stylesheet" href="styles/vendor.css">
+
     <link href='http://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" href="styles/main.css">
 
     <script src="scripts/vendor/modernizr.js"></script>
@@ -18,11 +20,11 @@
     <div class="wholeContainer">
         <div class="hero-unit">
           <div class="infoField">
-            <a href="#/add" class="addBtn"><button>Home</button></a>
+            <a href="#/add" class="addBtn"><button>Add Hero</button></a>
             <h1><a href="#/">Super Heroes</a></h1>
 
 
-                <div id="heroesAdder">
+                <div id="sortHeroes">
                   <a href="#/">Rating</a> &bull;
                   <a href="#/sort/title">Title</a> &bull;
                   <a href="#/sort/power">Power</a> &bull;
@@ -36,18 +38,17 @@
 
         <script type="text/template" id="addHeroes">
           <form id="heroesAdd">
-            <input type="text" id="title" placeholder="Hero Name"/>
-            <input type="text" id="power" placeholder="Super Power" />
-            <input type="text" id="alias" placeholder="Alias" />
+            <input type="text" id="heroes_title" placeholder="Hero Name"/>
+            <input type="text" id="heroes_power" placeholder="Super Power" />
+            <input type="text" id="heroes_alias" placeholder="Alias" />
             <br />
             <button>Add to Heroes</button>
           </form>
-          <hr />
         </script>
 
          <script type="text/template" id="listTemp">
-      <li class="card" id="<%= _id %>">
-        <a href="#/edit/<%= _id %>">
+      <li class="card" id="<%= objectId %>">
+        <a href="#/edit/<%= objectId %>">
           <div class="card-header">I am <%= title %> my super power is <%= power %> my alias name is <%= alias %></div>
           <% if(comments !== '') { %>
               <div class="card-copy"><p><%= comments %></p></div>
@@ -60,7 +61,7 @@
     </script>
 
     <script type="text/template" id="singleTemp">
-      <li class="card" id="<%= _id %>">
+      <li class="card" id="<%= objectId %>">
         <form id="updateHero">
             <div class="card-header">
               <input type="text" value="<%= title %>" id="update_title" />
