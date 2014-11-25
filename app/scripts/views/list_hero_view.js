@@ -26,13 +26,13 @@
             return model.get(self.options.sort);
     });
 
-      _.each(local_collection, function (h) {
-          self.$el.append(self.template(he.toJSON()));
+      _.each(local_collection, function (sh) {
+          self.$el.append(self.template(sh.toJSON()));
         })
       } else {
         this.collection.sort();
-        this.collection.each(function (h) {
-          self.$el.append(self.template(h.toJSON()));
+        this.collection.each(function (sh) {
+          self.$el.append(self.template(sh.toJSON()));
         });
       }
 

@@ -16,7 +16,7 @@
         this.options = options;
         this.render();
 
-      $('#heroForm').empty();
+      //$('#heroForm').empty();
       $('#superheroContainer').html(this.$el);
     },
 
@@ -33,7 +33,7 @@
           title: $('#update_title').val(),
           power: $('#update_power').val(),
           alias: $('#update_alias').val(),
-          rating: $('input[name="rating"]:checked').val()
+          rating: $('input[title="rating"]:checked').val()
       });
 
         this.options.hero.save();

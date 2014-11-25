@@ -3,10 +3,10 @@
 
     App.Models.Hero = Parse.Object.extend({
 
-      className: 'Superheroes',
+      className: 'Hero',  //was Superheroes
 
       idAttribute: 'objectId',
-      
+
         defaults: {
           title: '',
           power: '',
@@ -16,7 +16,7 @@
       },
 
       initialize: function() {
-        var hero = this.get('title');
+        var h = this.get('title');
       }
 
     });

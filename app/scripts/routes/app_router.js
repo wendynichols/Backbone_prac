@@ -8,9 +8,9 @@
 
       routes: {
         '' : 'home',
-        'edit/:id' : 'editHero',
+        'edit/:heroID' : 'editHero',
         'add' : 'addHero',
-        'sort/:sortby' : 'main'
+        'sort/:sortby' : 'home'
       },
 
       home: function (sortby) {
@@ -22,8 +22,8 @@
       },
 
       editHero: function (heroID) {
-        var h = App.heroes.get(heroID);
-        new App.Views.SingleHero({ hero: h });
+        var sh = App.heroes.get(heroID);
+        new App.Views.SingleHero({ hero: sh });
       },
 
       addHero: function () {

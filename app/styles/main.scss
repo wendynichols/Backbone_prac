@@ -66,7 +66,13 @@ img {
     color: white;
   }
 }
-
+#sortHeroes {
+  color: red;
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 .card {
   $card-border-color: $base-border-color;
   $card-border: 1px solid $card-border-color;
